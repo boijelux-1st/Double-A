@@ -38,7 +38,7 @@ export default function HomePage() {
       <section className="py-20 bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200">
         <div className="container mx-auto px-4 text-center">
           <div className="mb-6">
-            <h1 className="text-5xl font-bold text-blue-900 mb-4">Double A Data Center</h1>
+            <h1 className="text-5xl font-bold text-blue-900 mb-4">Dr Arab Data Center</h1>
             <p className="text-xl text-blue-800 font-semibold mb-2">Your Trusted VTU Partner in Bauchi</p>
             <p className="text-lg text-blue-700 mb-8 max-w-3xl mx-auto">
               Buy airtime, data bundles, pay bills, and manage your digital transactions with ease. Serving individuals
@@ -151,7 +151,7 @@ export default function HomePage() {
                 <span className="text-white font-bold">DA</span>
               </div>
               <div className="flex flex-col items-start">
-                <span className="text-xl font-bold">Double A Data Center</span>
+                <span className="text-xl font-bold">Dr Arab Data Center</span>
                 <span className="text-sm text-blue-200">Bauchi</span>
               </div>
             </div>
@@ -160,7 +160,7 @@ export default function HomePage() {
               <p>📞 +234-802-356-6143 | +234-813-345-0081</p>
               <p>✉️ 1st.boijelux@gmail.com</p>
             </div>
-            <p className="text-blue-300 text-sm mt-4">© 2024 Double A Data Center Bauchi. All rights reserved.</p>
+            <p className="text-blue-300 text-sm mt-4">© 2025 Dr Arab Data Center Bauchi. All rights reserved.</p>
           </div>
         </div>
       </footer>
