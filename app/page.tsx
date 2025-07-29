@@ -11,10 +11,10 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-900 to-blue-800 rounded-lg">
-              <span className="text-white font-bold text-lg">DA</span>
+              <span className="text-white font-bold text-lg">Dr</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold text-blue-900">Double A Data Center</span>
+              <span className="text-xl font-bold text-blue-900">Dr Arab Data Center</span>
               <span className="text-xs text-blue-700 font-medium">Bauchi</span>
             </div>
           </div>
