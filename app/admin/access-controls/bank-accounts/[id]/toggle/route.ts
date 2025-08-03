@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/database";
-import { verifyAdminToken } from "@/lib/auth"; // <-- Updated import
+import { verifyAdminToken } from "@/lib/auth"; // Secure shared utility
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {
