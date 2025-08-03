@@ -1,26 +1,21 @@
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
-export interface User {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  role: string
-}
+const ADMIN_ROLE = "admin";
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key"; // Should be set in environment
 
-export function verifyToken(token: string): User | null {
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "your-secret-key") as any
-    return decoded
-  } catch (error) {
-    return null
+/**
+ * Verifies that the Authorization header contains a valid admin JWT.
+ * Returns true if the token is valid and the role is admin.
+ */
+export function verifyAdminToken(authHeader: string | null): boolean {
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return false;
   }
-}
-
-export function generateToken(user: User): string {
-  return jwt.sign(
-    { userId: user.id, email: user.email, role: user.role },
-    process.env.JWT_SECRET || "your-secret-key",
-    { expiresIn: "7d" },
-  )
+  const token = authHeader.split(" ")[1];
+  try {
+    const payload = jwt.verify(token, JWT_SECRET) as any;
+    return payload.role === ADMIN_ROLE;
+  } catch {
+    return false;
+  }
 }
