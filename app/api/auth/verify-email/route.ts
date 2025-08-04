@@ -2,8 +2,6 @@ import { type NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/database"
 
 // In-memory storage for verification codes (use Redis in production)
-console.log("Received email:", email, "code:", code)
-console.log("Stored data for email:", verificationCodes.get(email))
 const verificationCodes = new Map<string, { code: string; expires: number }>()
 
 export async function POST(request: NextRequest) {
