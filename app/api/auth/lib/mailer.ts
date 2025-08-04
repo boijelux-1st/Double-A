@@ -5,14 +5,17 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function sendEmailVerification(email: string, code: string) {
   try {
-    await resend.emails.send({
+    const response = await resend.emails.send({
       from: "Double A <noreply@doublea.com>",
       to: email,
       subject: "Verify your email",
-      html: `<p>Your OTP code is: <strong>${code}</strong>. It expires in 5 minutes.</p>`,
+      html: `<p>Hello,</p><p>Your OTP verification code is:</p><h2>${code}</h2><p>This code will expire in 5 minutes.</p>`,
     })
-    console.log("OTP sent to:", email)
+
+    console.log("OTP email sent:", response)
+    return response
   } catch (error) {
-    console.error("Failed to send email:", error)
+    console.error("Failed to send OTP:", error)
+    throw new Error("Email send failed")
   }
 }
