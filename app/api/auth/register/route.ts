@@ -1,40 +1,45 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/database"
+import { sendOTP } from "@/lib/mailer"
+import { generateOTP } from "@/lib/utils"
 
 export async function POST(request: NextRequest) {
   try {
     const { firstName, lastName, email, phone, password, role } = await request.json()
 
-    console.log("Registration attempt for:", email)
-
-    // Validate required fields
     if (!firstName || !lastName || !email || !password) {
       return NextResponse.json({ message: "All fields are required" }, { status: 400 })
     }
 
-    // Check if user already exists
     const existingUser = await db.getUserByEmail(email)
     if (existingUser) {
-      console.log("User already exists:", email)
-      return NextResponse.json({ message: "User already exists with this email" }, { status: 400 })
+      return NextResponse.json({ message: "User already exists" }, { status: 400 })
     }
 
-    // Create user (in production, hash the password)
     const user = await db.createUser({
       firstName,
       lastName,
       email,
       phone,
-      password, // In production, use bcrypt.hash(password, 12)
+      password,
       role: role || "user",
       isActive: true,
     })
 
-    console.log("User created successfully:", user.email)
+    const otp = generateOTP()
+    await db.otp.create({
+      data: {
+        code: otp,
+        userId: user.id,
+        expiresAt: new Date(Date.now() + 5 * 60 * 1000),
+      },
+    })
+
+    await sendOTP(email, otp)
 
     return NextResponse.json(
       {
-        message: "User created successfully",
+        message: "User created and OTP sent",
         user: {
           id: user.id,
           firstName: user.firstName,
@@ -43,7 +48,7 @@ export async function POST(request: NextRequest) {
           role: user.role,
         },
       },
-      { status: 201 },
+      { status: 201 }
     )
   } catch (error) {
     console.error("Registration error:", error)
